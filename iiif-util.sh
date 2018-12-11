@@ -1,0 +1,1 @@
+java -jar iiif-util.jar "$@"

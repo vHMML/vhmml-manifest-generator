@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="FileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="append" value="true" />
+		<param name="maxFileSize" value="10MB" />
+		<param name="maxBackupIndex" value="10" />
+		<param name="file" value="${catalina.home}/logs/iiif-log.txt" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.vhmml" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="FileAppender" />
+	</logger>
+
+	<logger name="org.springframework.aop.interceptor.CustomizableTraceInterceptor" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="FileAppender" />
+	</logger>
+
+	<root>
+		<priority value="warn" />
+		<!-- By default, logging to the console will make Tomcat log statements to the catalina.out log file -->
+		<appender-ref ref="ConsoleAppender" />
+		<appender-ref ref="FileAppender" />
+	</root>
+
+</log4j:configuration>
